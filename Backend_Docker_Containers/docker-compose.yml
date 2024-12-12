@@ -1,0 +1,31 @@
+services:
+  backend:
+    build: .
+    container_name: backend
+    environment:
+      - DB=mongodb://db:27017/techdome # MongoDB URI
+      - PORT=3001 # Port for the backend server
+    ports:
+      - "3001:3001" # Maps host port 3001 to container port 3001
+    depends_on:
+      - db # Ensures MongoDB starts before the backend
+    networks:
+      - app-network
+
+  db:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017" # Maps host port 27017 to container port 27017
+    volumes:
+      - db_data:/data/db # Persistent volume for MongoDB
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 2 # Number of pods
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: techdome-backend-backend:latest # Replace with your backend Docker image name
+        ports:
+        - containerPort: 3001 # Port the container listens on
+        env:
+        - name: MONGO_URI
+          value: mongodb://db:27017/techdome # Replace with your DB connection string

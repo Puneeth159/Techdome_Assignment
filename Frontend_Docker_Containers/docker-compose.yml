@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile # Specify the Dockerfile (default is Dockerfile)
+    container_name: frontend
+    ports:
+      - "3000:3000" # Map port 80 in the container to port 8080 on the host
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

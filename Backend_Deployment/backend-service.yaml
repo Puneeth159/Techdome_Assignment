@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+  - protocol: TCP
+    port: 3001       # Expose this port to other services or externally
+    targetPort: 3001 # Forward traffic to container's port 3001
+  type: NodePort     # Expose this service externally on a NodePort
